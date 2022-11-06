@@ -3,12 +3,13 @@
     export let pageindex = 0;
     export let selected = false;
     import { createEventDispatcher } from 'svelte'; 
+    export let desc;
     const dispatch = createEventDispatcher();
 </script>
 {#if selected}
-  <div>&#62;</div><a href="javascript:void(0)" on:click>{page}</a>
+  <div>&#62;</div><a href="javascript:void(0)" on:click>{page}</a><p>{desc[1]}</p>
 {:else}
-    <a href="javascript:void(0)" on:click>{page}</a>
+    <a href="javascript:void(0)" on:click>{page}</a><p>{desc[1]}</p>
   {/if}
 
 <style>
@@ -22,10 +23,16 @@
         display: inline-flex;
         margin: none;
     }
-    div{
+    div,p{
 display: flex;
+ margin: 0;
+padding: 0;
+    }
+    p{
+        color:#c0c0c0;
     }
     a:hover{
         text-decoration: underline;
+       
     }
 </style>

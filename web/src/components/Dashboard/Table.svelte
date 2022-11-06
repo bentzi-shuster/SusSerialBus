@@ -15,7 +15,7 @@
 
 <table>
     <tr>
-        {#if mode == "dashboard"||mode=="view"}
+        {#if mode == "dashboard"}
         {#each selectedData as data,index}
         {#if index==0}
          {#each Object.keys(data) as key}
@@ -29,10 +29,15 @@
          {/if}
         {/each}
         {/if}
+        {#if mode == "view"}
+        <!-- <th>uuid</th> -->
+        <th>timestamp</th>
+        <th>clipboard</th>
+        {/if}
     <tr>
     <tr></tr>
     <!-- why does the above work -->
-    {#if mode == "dashboard"||mode=="view"}}
+    {#if mode == "dashboard"}
     {#each Object.values(selectedData) as data}
      <tr class="row" on:click={()=>{dispatch("selectedtable");viewid(Object.values(data)[0])}}>
         {#each Object.values(data) as value,index}
@@ -45,7 +50,21 @@
     </tr>
     {/each}
     {/if}
-
+    {#if mode == "view"}
+    {#each Object.values(selectedData) as data}
+     <tr class="row" on:click={()=>{dispatch("selectedtable");viewid(Object.values(data)[0])}}>
+        {#each Object.values(data) as value,index}
+         {#if Object.keys(data)[index] === "clipboard"}
+         <td>{value}</td>
+            {/if}
+            {#if Object.keys(data)[index] === "created_at"}
+            <td>{new Date(value).toLocaleString('en')}</td>
+               {/if}
+      
+         {/each}
+    </tr>
+    {/each}
+    {/if}
 </table>
 </div>
 <style>
@@ -60,6 +79,7 @@
         text-align: left;
         padding: 8px;
         color: white;
+        font-size: 12px;
     }
     th{
         background-color: #272727;
@@ -68,15 +88,30 @@
 
         }
         .tablescroll{
-            overflow: scroll;
+            overflow: auto;
             max-height: 20em;
+            -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
         }
+
+         /* Hide scrollbar for Chrome, Safari and Opera */
+.tablescroll::-webkit-scrollbar {
+  display: none;
+}
         .row{
             cursor: pointer;
            
         }
         .row:hover{
             background-color: #202020;
+        }
+        tr{
+            max-width: 100vw;
+        }
+        td{
+            max-width: 55em;
+word-wrap: break-word;
         }
 </style>
 

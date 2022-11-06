@@ -1,13 +1,17 @@
 <script>
   import { supabase } from "../../supabaseClient";
   import Table from "./Table.svelte";
+ let info 
   async function fun() {
     const { data, error, status } = await supabase.rpc("selectdata");
     // .from('computerinfo')
     // .select().order('uuid', { ascending: false })
+    if(status == 401){
+      supabase.auth.refreshSession();
+    }
     return data;
   }
-  let info;
+  
   fun().then((data) => {
     console.log(data);      
     info = data

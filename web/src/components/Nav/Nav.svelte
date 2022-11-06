@@ -3,26 +3,29 @@
     export let pages={};
     export let pageindex;
     import { createEventDispatcher } from 'svelte'; 
-    const dispatch = createEventDispatcher();
-    let open
+  import { slide } from 'svelte/transition';
+       const dispatch = createEventDispatcher();
+    export let open
 </script>
-<nav style:height= {open?"10em":""}>
+{#key open}
+<nav in:slide='{{ duration: 500 }}'out:slide='{{ duration: 250 }}' style:height= {open?"10em":""}>
     <button class="line" on:click={()=>open=!open}>
 </button>
 {#if open}
-    <p>test@test:~$ navlink</p>
+    <p>nav@test:~$ sudo getlinks</p>
 <ul>
     
 {#each Object.keys(pages) as page,index}
 <li>
-    <Navlink on:click={()=>{pageindex=index;dispatch("sel",{})}} selected={index=== pageindex} bind:page={page} pageindex={Object.keys(pages).indexOf(page)}/>
+    <Navlink desc={Object.values(pages)[index]} on:click={()=>{pageindex=index;dispatch("sel",{})}} selected={index=== pageindex} bind:page={page} pageindex={Object.keys(pages).indexOf(page)}/>
 </li>
 {/each}
 
 </ul>
 {/if}
-</nav>
 
+</nav>
+{/key}
 <style>
    nav{
     position: fixed;
@@ -44,10 +47,13 @@
    }
    .line{
     width: 100px;
-    height: 0.5rem;
+    height: 1rem;
+    min-height: 1rem;
     background-color: white;
     border-radius: 0.5rem;
     transition: 0.5s ease;
+    border: none;
+    margin-top: 1em;
    }
    .line:hover{
     width: 150px;
