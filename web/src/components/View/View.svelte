@@ -15,16 +15,10 @@ import { supabase } from "../../supabaseClient";
   .select('*')
   .eq('uuid',data[0].uuid)  
 
-  let { data: image } = await supabase
-  .from('image')
-  .select('*')
-  .eq('uuid',data[0].uuid)  
-  dataurl = "data:image/png;base64,"+image[0].data
-
-        console.log(image)    
+    
         dataval = data
         data2val = clipboard
-        data3val = image
+
         return data
     }
 //     supabase
@@ -34,18 +28,47 @@ import { supabase } from "../../supabaseClient";
 // })
 
 // .subscribe()
+
+async function fun2(){
+    const { data, error, status } = await supabase.from('computerinfo').select().eq('id',val);
+        let { data: clipboard } = await supabase
+  .from('clipboard')
+  .select('*')
+  .eq('uuid',data[0].uuid)  
+
+    let { data: image } = await supabase
+  .from('image')
+  .select('*')
+  .eq('uuid',data[0].uuid)  
+  dataurl = "data:image/png;base64,"+image[0].data
+    console.log(dataurl)
+    data3val = image
+    return dataurl
+}
+setInterval(()=>{
+    fun2().then((data) => {
+        console.log(data);      
+        data3val = data
+        })
+},500)
+    fun().then((data) => {
+        console.log(data);      
+        dataval = data
+    })
+
 </script>
 <h1>View</h1>
 {#await fun() }
 <p >wait</p>
 {:then dataval} 
      {#each Object.values(dataval) as data}
-     {#each Object.values(data) as value,index}
+  
+     <img src="{dataurl}" alt="">
+        <Table on:selectedtable bind:selectedData={data2val} mode="view"/>
+            {#each Object.values(data) as value,index}
         <p class="info">{Object.keys(data)[index]+": "}{value}</p>
         {/each}
-     {/each}   
-        <Table on:selectedtable bind:selectedData={data2val} mode="view"/>
-       <img src="{dataurl}" alt="">
+     {/each} 
 {/await}
 
 <style>
