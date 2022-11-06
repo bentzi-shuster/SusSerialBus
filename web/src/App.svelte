@@ -8,7 +8,7 @@ const pages={
     "Open Home":[Home,"info about the project"],
     "Open Dashboard":[Dashboard,"view a bunch of data"],
     "Open View":[View,"view a single computer"],
-    "Open Login":Login,
+    "Open Login":[Login,"login to the app"],
 }
 $: pageindex=1;
 $: selectedpage=1;
