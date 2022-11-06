@@ -1,1 +1,1 @@
-# app for more data
+This is the script that runs in the background on the infected PC.
