@@ -89,6 +89,9 @@ async function sendcmd(e){
         <div class="infowrap">
             <h4>Info for {Object.values(data)[6]}</h4>
               {#each Object.values(data) as value,index}
+              {#if Object.keys(data)[index]==='location'}
+              <a href="{'https://www.google.com/maps/?q='+value}" class="info">{Object.keys(data)[index]+": "}{value}</a>
+              {/if}
         <p class="info">{Object.keys(data)[index]+": "}{value}</p>
         {/each}
         </div>
