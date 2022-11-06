@@ -3,10 +3,12 @@ import Nav from "./components/Nav/Nav.svelte";
 import Dashboard from "./components/Dashboard/Dashboard.svelte";
 import Home from "./components/Home/Home.svelte";
 import View from "./components/View/View.svelte";
+  import Login from "./components/Login/login.svelte";
 const pages={
     "Open Home":Home,
     "Open Dashboard":Dashboard,
-    "Open View":View
+    "Open View":View,
+    "Open Login":Login,
 }
 $: pageindex=1;
 $: selectedpage=1;
@@ -31,11 +33,9 @@ switch (e.key) {
 <main>
     <div class="center">
             <Nav pages={pages} bind:pageindex={pageindex} on:sel={()=>{selectedpage=pageindex}}/>
-            {[pageindex]}
-            {selectedpage}
     </div>
 
-    <svelte:component this={pages[Object.keys(pages)[selectedpage]]}/> 
+    <svelte:component on:selectedtable={()=>{selectedpage=2;pageindex=2}} this={pages[Object.keys(pages)[selectedpage]]}/> 
 
 
 </main>

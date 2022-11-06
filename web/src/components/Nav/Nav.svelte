@@ -7,8 +7,7 @@
     let open
 </script>
 <nav style:height= {open?"10em":""}>
-    <button on:click={()=>open=!open}>
-    <div class="line"></div>
+    <button class="line" on:click={()=>open=!open}>
 </button>
 {#if open}
     <p>test@test:~$ navlink</p>
@@ -43,14 +42,15 @@
     padding: 0.5rem;
     border-radius: 0.5rem 0.5rem 0 0;
    }
-   p{
-
-   }
    .line{
     width: 100px;
-    height: 0.2rem;
+    height: 0.5rem;
     background-color: white;
     border-radius: 0.5rem;
+    transition: 0.5s ease;
+   }
+   .line:hover{
+    width: 150px;
    }
    ul{
     justify-content: flex-start;
